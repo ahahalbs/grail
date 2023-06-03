@@ -9,7 +9,6 @@
         <script crossorigin src="maxiInstruments.v.0.7.1.js"></script>
         <script src="./dist/aframe-master.min.js"></script> 
         <script src="bassOK.js"></script>
-        <div id = "synths"></div>
         <script>
             let animationStarted = false;
             let bassSynth;
@@ -485,7 +484,7 @@
 <!--                    <a-entity gltf-model="./angel_statue/scene.gltf" scale="0.07 0.07 0.07" position="0 -1.5 -22" rotation="0 0 0" material="transparent: true; opacity: 0.5" layer="2"></a-entity>-->
         </a-scene> 
         </div>
-        
+         <button onclick="loadSound()" id="button">Press this before entering VR to load audio</button>
         <div class="container">
             <h3>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h3>
             <h3>Controls</h3>

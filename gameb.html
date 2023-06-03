@@ -64,7 +64,7 @@
                     let drums = [
                         {p:0, s:0, v:127}, 
                     ];
-                    //instruments.playPause();
+                    instruments.playPause();
                     sampler.setSequence(drums,4);
 
                 }).catch((err)=> {
@@ -105,7 +105,7 @@
 
                         if (!animationStarted) {
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            loadSound(); 
+                            //loadSound(); 
                             playSomething();
                             animationStarted = true;
        

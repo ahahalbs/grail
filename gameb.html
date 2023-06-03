@@ -13,6 +13,7 @@
             let animationStarted = false;
             let bassSynth;
             let sampler; 
+            let clickCount = 0;
 
             // make clear that the origin is on mimicproject
             var origin = "https://mimicproject.com/libs";
@@ -105,9 +106,13 @@
 
                         if (!animationStarted) {
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            //loadSound();  
-                            playSomething();
-                            animationStarted = true;
+                            loadSound(); 
+                            clickCount++;
+                            if(clickCount>1){
+                                playSomething();
+                                animationStarted = true;
+                            }
+                            
                         }
                     });
                     //start the step sequencer

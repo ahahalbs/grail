@@ -498,6 +498,7 @@
             </a-scene> 
         </div>
         <div class="container">
+           <br><button id="soundButton">Play Again</button><br>
             <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: Quest Browser currently has a bug with audio caching, if you want to play it again you will need to clear your cache / play in incognito and close/open a new tab.</h4>
             <h3>Controls</h3>
             <div>
@@ -526,5 +527,10 @@
                 </div>
             </div>
         </div>
+        <script>
+document.getElementById("soundButton").onclick = function() {
+    loadSound();
+}
+</script>
     </body>
 </html>

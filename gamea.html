@@ -65,7 +65,7 @@
                     //instruments.playPause();
                     instruments.setTempo(129);
                     sampler.setSequence(drums,4);
-                    //instruments.playPause();                   
+                    instruments.playPause();                   
 
                
             resolve();
@@ -77,7 +77,7 @@
 };
 window.addEventListener('load', (event) => {
     loadSound().then(() => {
-        //instruments.playPause();  // Pausing immediately after loading.
+        instruments.playPause();  // Pausing immediately after loading.
     });
 });
         </script>

@@ -375,7 +375,7 @@ document.addEventListener('keydown', (event) => {
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -28  });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -13  });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -404,7 +404,7 @@ document.addEventListener('keydown', (event) => {
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -28 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -13 });
                         }
 
                         tile.setAttribute('class', 'interactive');
@@ -470,7 +470,7 @@ document.addEventListener('keydown', (event) => {
 
             <a-entity id="rig" position="0 0 0">   
                 <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
-                <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>test
+                <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
                 <a-box id="leftSpawn" color="#FD3A69" position="-1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
                 <a-box id="rightSpawn" color="#FECD1A" position="1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
 
@@ -495,11 +495,11 @@ document.addEventListener('keydown', (event) => {
                     <a-light color="white" position="-1 1 0" layer="1"></a-light>
                     <a-light type="ambient" color="white" intensity="1" layer="1"></a-light>
 -->
-<!--                    <a-entity gltf-model="./angel_statue/scene.gltf" scale="0.07 0.07 0.07" position="0 -1.5 -22" rotation="0 0 0" material="transparent: true; opacity: 0.5" layer="2"></a-entity>-->
+<!--                    <a-entity gltf-model="./angel_statue/scene.gltf" scale="0.07 0.07 0.07" position="0 -1.5 -22" rotation="0 0 0" material="transparent: true; opacity: 0.5" layer="2"></a-entity> -->
         </a-scene> 
         </div>
         <div class="container">
-            <h3>Enter VR mode and press any button to start. Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h3>
+            <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: Quest Browser currently has a bug with audio caching, if you want to play it again you will need to clear your cache / play in incognito and close/open a new tab.</h4>
             <h3>Controls</h3>
             <div>
                 <li>Left trigger - fire pink laser</li>

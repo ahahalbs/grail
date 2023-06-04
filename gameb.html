@@ -18,67 +18,73 @@
             var origin = "https://mimicproject.com/libs";
             // pass the origin in when loading your instruments
             const instruments = new MaxiInstruments(origin);
-            const loadSound=()=>{
-                instruments.loadModules().then(()=> {
+            const loadSound = () => {
+                return new Promise((resolve, reject) => {
+                    instruments.loadModules().then(() => {
 
-                    bassSynth = instruments.addSynth();
-                    bassSynth.setOsc(2);
+                        bassSynth = instruments.addSynth();
+                        bassSynth.setOsc(2);
 
-                    bassSynth.setParams([
-                        ["oscFn",3],
-                        ["lfoOscFn",0],
-                        ["gain",0.5],
-                        ["pan",0.5],
-                        ["attack",375],
-                        ["decay",1500],
-                        ["sustain",1],
-                        ["release",1245],
-                        ["lfoFrequency",10],
-                        ["lfoPitchMod",0],
-                        ["lfoFilterMod",720],
-                        ["lfoAmpMod",0.36],
-                        ["adsrPitchMod",0],
-                        ["cutoff",2644.8],
-                        ["reverbMix",0.06],
-                        ["roomSize",0],
-                        ["delay",14994.000000000002],
-                        ["delayMix",0.09],
-                        ["frequency",440],
-                        ["frequency2",440],
-                    ]);
+                        bassSynth.setParams([
+                            ["oscFn",3],
+                            ["lfoOscFn",0],
+                            ["gain",0.5],
+                            ["pan",0.5],
+                            ["attack",375],
+                            ["decay",1500],
+                            ["sustain",1],
+                            ["release",1245],
+                            ["lfoFrequency",10],
+                            ["lfoPitchMod",0],
+                            ["lfoFilterMod",720],
+                            ["lfoAmpMod",0.36],
+                            ["adsrPitchMod",0],
+                            ["cutoff",2644.8],
+                            ["reverbMix",0.06],
+                            ["roomSize",0],
+                            ["delay",14994.000000000002],
+                            ["delayMix",0.09],
+                            ["frequency",440],
+                            ["frequency2",440],
+                        ]);
 
-                    sampler = instruments.addSampler();
-                    sampler.loadSample("controlversion2.mp3", 0);
-                    sampler.loadSample("fail2.mp3", 1);
-                    sampler.loadSample('controlshot.mp3',2);
-                    sampler.setParam("rate_0", 1);
-                    sampler.setParam("pan_0", 0.5);
-                    sampler.setParam("gain_0", 1);
-                    sampler.setParam("rate_1", 1);
-                    sampler.setParam("pan_1", 0.5);
-                    sampler.setParam("gain_1", 0.5);
-                    sampler.setParam("rate_2", 1);
-                    sampler.setParam("pan_2", 0.5);
-                    sampler.setParam("gain_2", 0.8);
+                        sampler = instruments.addSampler();
+                        sampler.loadSample("controlversion2.mp3", 0);
+                        sampler.loadSample("fail2.mp3", 1);
+                        sampler.loadSample('controlshot.mp3',2);
+                        sampler.setParam("rate_0", 1);
+                        sampler.setParam("pan_0", 0.5);
+                        sampler.setParam("gain_0", 1);
+                        sampler.setParam("rate_1", 1);
+                        sampler.setParam("pan_1", 0.5);
+                        sampler.setParam("gain_1", 0.5);
+                        sampler.setParam("rate_2", 1);
+                        sampler.setParam("pan_2", 0.5);
+                        sampler.setParam("gain_2", 0.8);
 
-                    let drums = [
-                        {p:0, s:0, v:127}, 
-                    ];
-                    instruments.playPause();
-                    sampler.setSequence(drums,4);
+                        let drums = [
+                            {p:0, s:0, v:127}, 
+                        ];
+                        //instruments.playPause();
+                        instruments.setTempo(129);
+                        sampler.setSequence(drums,4); 
+                        instruments.playPause();                   
 
-                }).catch((err)=> {
-                    console.log("error", err);
+
+                        resolve();
+                    }).catch((err) => {
+                        console.log("error", err);
+                        reject(err);
+                    });
                 });
             };
-
-            const playSomething=()=>{
-                instruments.rewind();
-                instruments.playPause();
-                instruments.setTempo(129);
-                //animationStarted = true;
-
-            }
+            window.addEventListener('load', (event) => {
+                loadSound().then(() => {
+                    instruments.rewind();
+                    soundReady = true;
+                    //instruments.playPause(); 
+                });
+            });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -105,21 +111,26 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted) {
-                            
-                            //loadSound();  
-                            playSomething();
+                        if (!animationStarted && soundReady) {
+                            instruments.playPause();
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
+                            soundReady = false;
+
                         }
                     });
+
                     //start the step sequencer
                     document.addEventListener('keydown', (event) => {
-                        if (event.key == 'p' && animationStarted == false){
-                            //loadSound();  
-                            playSomething();
+                        const tilesEntity = document.getElementById('tilesEntity');
+
+                        if (event.key == 'p' && animationStarted == false && soundReady == true){
+                            instruments.playPause();  // Play the sound
+
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
+                            soundReady = false;
+
                         }
                     });
                     this.el.addEventListener('triggerdown', (event) => {
@@ -130,8 +141,8 @@
 
                         if (intersectedEls.length > 0) {
 
-//                            let noteValue = intersectedEls[0].dataset.basslineP;
-//                            let noteLength = intersectedEls[0].dataset.basslineL * 116;
+                            //                            let noteValue = intersectedEls[0].dataset.basslineP;
+                            //                            let noteLength = intersectedEls[0].dataset.basslineL * 116;
 
                             if (intersectedEls[0].getAttribute('id') === 'bassLeft' && this.el.id === 'leftHand') {
                                 sampler.noteon(2);
@@ -143,9 +154,9 @@
                                 this.triggerdown = false;
                             }
 
-//                            setTimeout(() => {
-//                                bassSynth.noteoff(noteValue);
-//                            }, noteLength);
+                            //                            setTimeout(() => {
+                            //                                bassSynth.noteoff(noteValue);
+                            //                            }, noteLength);
                         }  
 
                         setTimeout(() => {
@@ -360,7 +371,7 @@
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) - 13 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) - 28 });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -389,7 +400,7 @@
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) - 13 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) - 28 });
                         }
 
                         tile.setAttribute('class', 'interactive');
@@ -444,45 +455,45 @@
     </head>
     <body>
         <div id="title">
-        <h1>Grail (B)</h1>
-            </div>
+            <h1>Grail (B)</h1>
+        </div>
         <div id="mySceneContainer">
-        <a-scene embedded background="color: black">
-               <!--        <a-scene stats background="color: black" renderer="alpha: true; sortObjects:true; foveationLevel: 0">-->
-<!--        <a-scene stats background="color: black">-->
+            <a-scene embedded background="color: black">
+                <!--        <a-scene stats background="color: black" renderer="alpha: true; sortObjects:true; foveationLevel: 0">-->
+                <!--        <a-scene stats background="color: black">-->
 
-            <a-entity id="rig" position="0 0 0">   
-                <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
-                <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
-                <a-box id="leftSpawn" color="#FD3A69" position="-1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
-                <a-box id="rightSpawn" color="#FECD1A" position="1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
+                <a-entity id="rig" position="0 0 0">   
+                    <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
+                    <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .interactive; far: 10; showLine: false; lineOpacity: 0" controller-listener></a-entity>
+                    <a-box id="leftSpawn" color="#FD3A69" position="-1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
+                    <a-box id="rightSpawn" color="#FECD1A" position="1.5 0.5 -20" width="3" height="4" depth="1" side="double" opacity="0.05"helper="threshold: -24;axis: xz" ></a-box>
 
-                <a-plane id='helper4' position="0 -1.51 -16" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -19"></a-plane>
+                    <a-plane id='helper4' position="0 -1.51 -16" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -19"></a-plane>
 
-                <a-plane id='helper3' position="0 -1.51 -12" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -15"></a-plane>
+                    <a-plane id='helper3' position="0 -1.51 -12" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -15"></a-plane>
 
-                <a-plane id='helper2' position="0 -1.51 -8" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -11"></a-plane>
+                    <a-plane id='helper2' position="0 -1.51 -8" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -11"></a-plane>
 
-                <a-plane id='helper1' position="0 -1.51 -4" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -7"></a-plane>
+                    <a-plane id='helper1' position="0 -1.51 -4" width="6" height="1" rotation="-90 0 0" material="color: white; transparent: true; opacity: 0.1" helper="threshold: -7"></a-plane>
 
-                <a-camera look-controls wasd-controls-enabled="true" far="24">
+                    <a-camera look-controls wasd-controls-enabled="true" far="24">
 
-                  <a-plane id="face" position="0 0 -19.1" rotation="0 0 0" width="64" height="64" material="color: red; transparent: true; opacity: 0.0" checker animation="property: material.opacity; from: 0; to: 0; dur: 464; easing: easeInOutSine; dir: alternate; loop: true">
+                        <a-plane id="face" position="0 0 -19.1" rotation="0 0 0" width="64" height="64" material="color: red; transparent: true; opacity: 0.0" checker animation="property: material.opacity; from: 0; to: 0; dur: 464; easing: easeInOutSine; dir: alternate; loop: true">
 
-                        <a-plane id="hitPlane" position="0 0 -1" rotation="0 0 0" width="72" height="72" material="color: red; transparent: true; opacity: 0." hit-animator></a-plane>
-                    </a-plane>
-                </a-camera>
-            </a-entity>
-            <a-entity id="tilesEntity"></a-entity>
-<!--
-                    <a-light color="white" position="-1 1 0" layer="1"></a-light>
-                    <a-light type="ambient" color="white" intensity="1" layer="1"></a-light>
+                            <a-plane id="hitPlane" position="0 0 -1" rotation="0 0 0" width="72" height="72" material="color: red; transparent: true; opacity: 0." hit-animator></a-plane>
+                        </a-plane>
+                    </a-camera>
+                </a-entity>
+                <a-entity id="tilesEntity"></a-entity>
+                <!--
+<a-light color="white" position="-1 1 0" layer="1"></a-light>
+<a-light type="ambient" color="white" intensity="1" layer="1"></a-light>
 -->
-<!--                    <a-entity gltf-model="./angel_statue/scene.gltf" scale="0.07 0.07 0.07" position="0 -1.5 -22" rotation="0 0 0" material="transparent: true; opacity: 0.5" layer="2"></a-entity>-->
-        </a-scene> 
+                <!--                    <a-entity gltf-model="./angel_statue/scene.gltf" scale="0.07 0.07 0.07" position="0 -1.5 -22" rotation="0 0 0" material="transparent: true; opacity: 0.5" layer="2"></a-entity>-->
+            </a-scene> 
         </div>
         <div class="container">
-            <h3>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h3>
+            <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: Quest Browser currently has a bug with audio caching, if you want to play it again you will need to clear your cache / play in incognito and close/open a new tab.</h4>
             <h3>Controls</h3>
             <div>
                 <li>Left trigger - fire pink laser</li>
@@ -498,17 +509,17 @@
                 <a target="_blank" rel="noopener noreferrer" id="gdpr" href="https://forms.gle/5HHX168VB9ruoM4B9">Click here to fill out your second survey</a>
             </div>
             <div id="gdpr">
-            <div style="text-align: center;" id="top"><br>
-                <a  href="gameba.html" >Play the next version here!</a>
-            </div>
+                <div style="text-align: center;" id="top"><br>
+                    <a  href="gameba.html" >Play the next version here!</a>
+                </div>
                 <div>
                 </div>
-            <p style="text-align: center;">
+                <p style="text-align: center;">
                 <div>
-                 </div>
-            <div id="foot" style="text-align: center;">Alexander Brigden, Goldsmiths, University of London
+                </div>
+                <div id="foot" style="text-align: center;">Alexander Brigden, Goldsmiths, University of London
+                </div>
             </div>
-        </div>
         </div>
     </body>
 </html>

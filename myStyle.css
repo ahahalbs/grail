@@ -35,6 +35,7 @@ form {
     width: 640px;
     height: 320px;
     z-index: 2;
+    visibility: hidden;
 }
 .container {
     top: 0px;

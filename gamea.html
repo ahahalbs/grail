@@ -23,7 +23,6 @@
                 return new Promise((resolve, reject) => {
                     instruments.loadModules().then(() => {
 
-
                         bassSynth = instruments.addSynth();
                         bassSynth.setOsc(2);
 
@@ -80,7 +79,8 @@
                 loadSound().then(() => {
                     instruments.rewind();
                     soundReady = true;
-
+                    var scene = document.querySelector('#my-scene');
+                    scene.style.visibility = 'visible';
                     //console.log(soundReady);
                     // Play the sound
 

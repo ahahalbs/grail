@@ -103,7 +103,7 @@
 
                         if (!animationStarted) {
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            loadSound();  
+                            //loadSound();  
                             playSomething();
                             //animationStarted = true;
                         }
@@ -440,6 +440,13 @@
         </script>
     </head>
     <body>
+        <script>
+document.getElementById("soundButton").onclick = function() {
+    // User confirmation popup
+    loadSound();
+}
+</script>
+
         <div id="title">
         <h1>Grail (A)</h1>
             </div>
@@ -479,6 +486,7 @@
         </a-scene> 
         </div>
         <div class="container">
+            <button id="soundButton">Click this button before entering VR!</button>
             <h3>Enter VR mode and press any button to start. Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h3>
             <h3>Controls</h3>
             <div>

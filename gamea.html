@@ -81,7 +81,7 @@ window.addEventListener('load', (event) => {
         instruments.rewind();
         soundReady = true;
         
-        console.log(soundReady);
+        //console.log(soundReady);
                      // Play the sound
         
         //instruments.playPause();  // Pausing immediately after loading.
@@ -234,12 +234,12 @@ document.addEventListener('keydown', (event) => {
                         } 
                     }
 
-//                    if (this.hitCount > 1.0) {
-//                        this.death.removeAttribute('animation');
-//                        this.death.setAttribute('material', 'opacity', 1);
-//                        document.querySelector('#hitPlane').emit('hit');
-//                        this.el.sceneEl.emit('stop');
-//                    }
+                   if (this.hitCount > 1.0) {
+                       this.death.removeAttribute('animation');
+                       this.death.setAttribute('material', 'opacity', 1);
+                       document.querySelector('#hitPlane').emit('hit');
+                       this.el.sceneEl.emit('stop');
+                   }
 
                     const currentOpacity = parseFloat(this.death.getAttribute('material').opacity);
                     if (currentOpacity <= 0) {

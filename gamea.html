@@ -60,12 +60,17 @@
                     let drums = [
                         {p:0, s:0, v:127}, 
                     ];
+                    instruments.playPause();
                     instruments.setTempo(129);
                     sampler.setSequence(drums,4);
-                    instruments.playPause();
                     instruments.rewind();
-                    instruments.playPause();
-                    animationStarted = true;
+                    
+                     setTimeout(function() {
+                     // this code will be executed after 2 seconds
+                        instruments.playPause();
+                        animationStarted = true;
+                      }, 3000);
+                    
 
                 }).catch((err)=> {
                     console.log("error", err);

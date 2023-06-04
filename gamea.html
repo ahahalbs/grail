@@ -75,7 +75,11 @@
         });
     });
 };
-
+window.addEventListener('load', (event) => {
+    loadSound().then(() => {
+        instruments.playPause();  // Pausing immediately after loading.
+    });
+});
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -103,10 +107,11 @@ this.el.addEventListener('buttondown', (event) => {
     const tilesEntity = document.getElementById('tilesEntity');
 
     if (!animationStarted) {
-        loadSound().then(() => {
+                instruments.playPause();  // Play the sound
+
             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
             animationStarted = true;
-        });
+
     }
 });
 
@@ -115,10 +120,11 @@ document.addEventListener('keydown', (event) => {
     const tilesEntity = document.getElementById('tilesEntity');
 
     if (event.key == 'p' && animationStarted == false){
-        loadSound().then(() => {
+                instruments.playPause();  // Play the sound
+
             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
             animationStarted = true;
-        });
+   
     }
 });
 

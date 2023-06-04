@@ -397,12 +397,12 @@
                 }
 
                 if (sceneEl.hasLoaded) {
-                    loadSound();
+                    //loadSound();
                     //populateBlocks();
                     //sceneEl.appendChild(tilesEntity);
                 } else {
                     sceneEl.addEventListener('loaded', () => {
-                        //loadSound();
+                        loadSound();
                         populateBlocks();
                         sceneEl.appendChild(tilesEntity);
                         

@@ -28,6 +28,9 @@ form {
      z-index: 3;
 
 }
+ #my-scene {
+            visibility: hidden;
+        }
 
 #mySceneContainer {
     position: absolute;
@@ -35,7 +38,6 @@ form {
     width: 640px;
     height: 320px;
     z-index: 2;
-    visibility: hidden;
 }
 .container {
     top: 0px;

@@ -62,10 +62,10 @@
                     let drums = [
                         {p:0, s:0, v:127}, 
                     ];
-                    instruments.playPause();
+                    //instruments.playPause();
                     instruments.setTempo(129);
                     sampler.setSequence(drums,4);
-                    instruments.playPause();                   
+                    //instruments.playPause();                   
 
                
             resolve();
@@ -408,7 +408,7 @@ document.addEventListener('keydown', (event) => {
                     //sceneEl.appendChild(tilesEntity);
                 } else {
                     sceneEl.addEventListener('loaded', () => {
-                        //loadSound();
+                        loadSound();
                         populateBlocks();
                         sceneEl.appendChild(tilesEntity);
                         

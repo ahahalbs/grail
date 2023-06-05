@@ -545,6 +545,8 @@
 document.getElementById("soundButton").onclick = function() {
     // User confirmation popup
     loadSound();
+    var scene = document.querySelector('#my-scene');
+    scene.style.visibility = 'visible';
     soundReady = true;
 }
 </script>

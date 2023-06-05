@@ -65,8 +65,8 @@
                         ];
                         //instruments.playPause();
                         instruments.setTempo(129);
-                        sampler.setSequence(drums,4); 
-                        instruments.playPause();                   
+                        //sampler.setSequence(drums,4); 
+                        //instruments.playPause();                   
 
 
                         resolve();
@@ -78,7 +78,7 @@
             };
             window.addEventListener('load', (event) => {
                 loadSound().then(() => {
-                    instruments.rewind();
+                    //instruments.rewind();
                     soundReady = true;
                     var scene = document.querySelector('#my-scene');
                     scene.style.visibility = 'visible';

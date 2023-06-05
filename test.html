@@ -65,8 +65,8 @@
                         ];
                         //instruments.playPause();
                         instruments.setTempo(129);
-                        sampler.setSequence(drums,4); 
-                        instruments.playPause();                   
+                        //sampler.setSequence(drums,4); 
+                        //instruments.playPause();                   
 
 
                         resolve();
@@ -76,15 +76,15 @@
                     });
                 });
             };
-            window.addEventListener('load', (event) => {
-//                 loadSound().then(() => {
-//                     instruments.rewind();
-                     soundReady = true;
-                    var scene = document.querySelector('#my-scene');
-                    scene.style.visibility = 'visible';
-
-//                 });
-            });
+//            window.addEventListener('load', (event) => {
+//                loadSound().then(() => {
+//                    //instruments.rewind();
+//                    soundReady = true;
+//                    var scene = document.querySelector('#my-scene');
+//                    scene.style.visibility = 'visible';
+//
+//                });
+//            });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -107,59 +107,51 @@
 
                     //trigger state
                     this.triggerdown = false;
+                    
+                     //start the step sequencer
+                    document.addEventListener('keydown', (event) => {
+                        const tilesEntity = document.getElementById('tilesEntity');
+                        
+                                        loadSound().then(() => {
+                    //instruments.rewind();
+                    soundReady = true;
+                    var scene = document.querySelector('#my-scene');
+                    scene.style.visibility = 'visible';
+
+                });
 
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
-                    if (animationStarted == false && soundReady == true) {
-                         loadSound().then(() => {
-                    instruments.rewind();
-                    soundReady = true;
-//                     var scene = document.querySelector('#my-scene');
-//                     scene.style.visibility = 'visible';
-                              instruments.playPause();
+
+                        if (animationStarted == false && soundReady == true) {
+                            sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;
 
-                });
-                    }
-                        
-//                         if (animationStarted == false && soundReady == true) {
-//                             instruments.playPause();
-//                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-//                             animationStarted = true;
-//                             soundReady = false;
-
-//                         }
+                        }
                     });
 
                     //start the step sequencer
                     document.addEventListener('keydown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
-
                         
-                  if (animationStarted == false && soundReady == true) {
-                         loadSound().then(() => {
-                    instruments.rewind();
+                                        loadSound().then(() => {
+                    //instruments.rewind();
                     soundReady = true;
-//                     var scene = document.querySelector('#my-scene');
-//                     scene.style.visibility = 'visible';
-                              instruments.playPause();
+                    var scene = document.querySelector('#my-scene');
+                    scene.style.visibility = 'visible';
+
+                });
+
+                        if (event.key == 'p' && animationStarted == false && soundReady == true){
+                            //instruments.playPause();  // Play the sound
+                            sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;
 
-                });
-                    }
-                        
-//                         if (event.key == 'p' && animationStarted == false && soundReady == true){
-//                             instruments.playPause();  // Play the sound
-
-//                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-//                             animationStarted = true;
-//                             soundReady = false;
-
-//                         }
+                        }
                     });
                     this.el.addEventListener('triggerdown', (event) => {
                         //const color = this.el.id === 'leftHand' ? '#FD3A69' : '#FECD1A';
@@ -399,7 +391,7 @@
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8  });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7  });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -428,7 +420,7 @@
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7 });
                         }
 
                         tile.setAttribute('class', 'interactive');

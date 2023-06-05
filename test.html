@@ -25,9 +25,7 @@
             const loadSound = () => {
                 return new Promise((resolve, reject) => {
                     instruments.loadModules().then(() => {
-                        
-                        const tilesEntity = document.getElementById('tilesEntity');
-
+                       
                         bassSynth = instruments.addSynth();
                         bassSynth.setOsc(2);
 
@@ -55,7 +53,7 @@
                         ]);
 
                         sampler = instruments.addSampler();
-                        sampler.loadSample("CLICK2.mp3", 0);
+                        sampler.loadSample("CLICK.mp3", 0);
                         sampler.loadSample("fail2.mp3", 1);
                         sampler.setParam("rate_0", 1);
                         sampler.setParam("pan_0", 0.5);
@@ -70,9 +68,7 @@
                         //sampler.setSequence(drums,4); 
                         //instruments.playPause();                   
                         sampler.setSequence(drums,4);
-                        
-                        tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                        animationStarted = true;
+                       
 
                         resolve();
                        
@@ -116,12 +112,13 @@
 
                         if (!animationStarted) {
                              loadSound().then(() => {
+                                 
                     //instruments.rewind();
                     //sampler.setSequence(drums,4); 
                                  
                             //instruments.playPause();
-                           //tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-//                             animationStarted = true;
+                           tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                             animationStarted = true;
 //                             soundReady = false;
                   
 

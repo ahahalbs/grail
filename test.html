@@ -109,13 +109,11 @@
 
                         if (animationStarted == false && soundReady == true) {
                            //loadSound();
-                            setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;
 
-                            }, 4000);
                         };
                     });
 
@@ -129,13 +127,10 @@
                         if (event.key == 'p' && animationStarted == false && soundReady == true){
                             //loadSound();
                              animationStarted = true;
-
-                            setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             soundReady = false;
 
-                            }, 4000);
                             
 //                            //instruments.playPause();  // Play the sound
 //                            sampler.noteon(0);
@@ -508,7 +503,7 @@
         </div>
         <div class="container">
             <br>
-            <button id="soundButton">Enable Sound</button>
+            <button id="soundButton">Click here to load game!</button>
 
                         <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: to replay the same version go back and enter url again, not refresh</h4>
 
@@ -545,9 +540,11 @@
 document.getElementById("soundButton").onclick = function() {
     // User confirmation popup
     loadSound();
+    setTimeout(() => {
     var scene = document.querySelector('#my-scene');
     scene.style.visibility = 'visible';
     soundReady = true;
+          }, 4000);
 }
 </script>
 </html>

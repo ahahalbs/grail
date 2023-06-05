@@ -20,67 +20,67 @@
             // pass the origin in when loading your instruments
             const instruments = new MaxiInstruments(origin);
             const loadSound = () => {
-                    instruments.loadModules().then(() => {
+                instruments.loadModules().then(() => {
 
 
-                        bassSynth = instruments.addSynth();
-                        bassSynth.setOsc(2);
+                    bassSynth = instruments.addSynth();
+                    bassSynth.setOsc(2);
 
-                        bassSynth.setParams([
-                            ["oscFn",3],
-                            ["lfoOscFn",0],
-                            ["gain",0.5],
-                            ["pan",0.5],
-                            ["attack",375],
-                            ["decay",1500],
-                            ["sustain",1],
-                            ["release",1245],
-                            ["lfoFrequency",10],
-                            ["lfoPitchMod",0],
-                            ["lfoFilterMod",720],
-                            ["lfoAmpMod",0.36],
-                            ["adsrPitchMod",0],
-                            ["cutoff",2644.8],
-                            ["reverbMix",0.06],
-                            ["roomSize",0],
-                            ["delay",14994.000000000002],
-                            ["delayMix",0.09],
-                            ["frequency",440],
-                            ["frequency2",440],
-                        ]);
+                    bassSynth.setParams([
+                        ["oscFn",3],
+                        ["lfoOscFn",0],
+                        ["gain",0.5],
+                        ["pan",0.5],
+                        ["attack",375],
+                        ["decay",1500],
+                        ["sustain",1],
+                        ["release",1245],
+                        ["lfoFrequency",10],
+                        ["lfoPitchMod",0],
+                        ["lfoFilterMod",720],
+                        ["lfoAmpMod",0.36],
+                        ["adsrPitchMod",0],
+                        ["cutoff",2644.8],
+                        ["reverbMix",0.06],
+                        ["roomSize",0],
+                        ["delay",14994.000000000002],
+                        ["delayMix",0.09],
+                        ["frequency",440],
+                        ["frequency2",440],
+                    ]);
 
-                        sampler = instruments.addSampler();
-                        sampler.loadSample("CLICK.mp3", 0);
-                        sampler.loadSample("fail2.mp3", 1);
-                        sampler.setParam("rate_0", 1);
-                        sampler.setParam("pan_0", 0.5);
-                        sampler.setParam("gain_0", 1);
-                        sampler.setParam("rate_1", 1);
-                        sampler.setParam("pan_1", 0.5);
-                        sampler.setParam("gain_1", 0.5);
+                    sampler = instruments.addSampler();
+                    sampler.loadSample("CLICK.mp3", 0);
+                    sampler.loadSample("fail2.mp3", 1);
+                    sampler.setParam("rate_0", 1);
+                    sampler.setParam("pan_0", 0.5);
+                    sampler.setParam("gain_0", 1);
+                    sampler.setParam("rate_1", 1);
+                    sampler.setParam("pan_1", 0.5);
+                    sampler.setParam("gain_1", 0.5);
 
-//                        let drums = [
-//                            {p:0, s:0, v:127}, 
-//                        ];
-                        //instruments.playPause();
-                        instruments.setTempo(129);
-                        //sampler.setSequence(drums,4); 
-                        //instruments.playPause();                   
+                    //                        let drums = [
+                    //                            {p:0, s:0, v:127}, 
+                    //                        ];
+                    //instruments.playPause();
+                    instruments.setTempo(129);
+                    //sampler.setSequence(drums,4); 
+                    //instruments.playPause();                   
 
 
-                    }).catch((err) => {
-                        console.log("error", err);
-                    });
+                }).catch((err) => {
+                    console.log("error", err);
+                });
             };
-//            window.addEventListener('load', (event) => {
-//                loadSound().then(() => {
-//                    instruments.rewind();
-//                    soundReady = true;
-//                    var scene = document.querySelector('#my-scene');
-//                    scene.style.visibility = 'visible';
-//
-//                });
-//            });
+            //            window.addEventListener('load', (event) => {
+            //                loadSound().then(() => {
+            //                    instruments.rewind();
+            //                    soundReady = true;
+            //                    var scene = document.querySelector('#my-scene');
+            //                    scene.style.visibility = 'visible';
+            //
+            //                });
+            //            });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -108,7 +108,7 @@
                         const tilesEntity = document.getElementById('tilesEntity');
 
                         if (animationStarted == false && soundReady == true) {
-                           //loadSound();
+                            //loadSound();
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
@@ -120,23 +120,23 @@
                     //start the step sequencer
                     document.addEventListener('keydown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
-                    
-                       
-                        
+
+
+
 
                         if (event.key == 'p' && animationStarted == false && soundReady == true){
                             //loadSound();
-                             animationStarted = true;
+                            animationStarted = true;
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             soundReady = false;
 
-                            
-//                            //instruments.playPause();  // Play the sound
-//                            sampler.noteon(0);
-//                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-//                            animationStarted = true;
-//                            soundReady = false;
+
+                            //                            //instruments.playPause();  // Play the sound
+                            //                            sampler.noteon(0);
+                            //                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                            //                            animationStarted = true;
+                            //                            soundReady = false;
 
                         }
                     });
@@ -505,7 +505,7 @@
             <br>
             <button id="soundButton">Click here to load game!</button>
 
-                        <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: to replay the same version go back and enter url again, not refresh</h4>
+            <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h4>
 
             <h3>Controls</h3>
             <div>
@@ -536,15 +536,14 @@
         </div>
     </body>
     <script>
-        
-document.getElementById("soundButton").onclick = function() {
-    // User confirmation popup
-    loadSound();
-    setTimeout(() => {
-    var scene = document.querySelector('#my-scene');
-    scene.style.visibility = 'visible';
-    soundReady = true;
-          }, 4000);
-}
-</script>
+
+        document.getElementById("soundButton").onclick = function() {
+            loadSound();
+            setTimeout(() => {
+                var scene = document.querySelector('#my-scene');
+                scene.style.visibility = 'visible';
+                soundReady = true;
+            }, 4000);
+        }
+    </script>
 </html>

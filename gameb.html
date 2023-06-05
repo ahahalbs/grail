@@ -12,6 +12,7 @@
         <script>
             let animationStarted = false;
             let bassSynth;
+            let laserSynthl
             let sampler; 
             let soundReady = false;
 
@@ -23,7 +24,9 @@
                     instruments.loadModules().then(() => {
 
                         bassSynth = instruments.addSynth();
-                        bassSynth.setOsc(2);
+                        bassSynth.setOsc(2);                
+                        laserSynth = instruments.addSynth();
+                        laserSynth.setOsc(2);
 
                         bassSynth.setParams([
                             ["oscFn",3],
@@ -47,11 +50,32 @@
                             ["frequency",440],
                             ["frequency2",440],
                         ]);
+                        laserSynth.setParams([
+                            ["oscFn",2],
+                            ["lfoOscFn",3],
+                            ["gain",0.5],
+                            ["pan",0.5],
+                            ["attack",30],
+                            ["decay",1500],
+                            ["sustain",0.31],
+                            ["release",90],
+                            ["lfoFrequency",9.399999999999999],
+                            ["lfoPitchMod",7.199999999999999],
+                            ["lfoFilterMod",1000],
+                            ["lfoAmpMod",0.81],
+                            ["adsrPitchMod",0],
+                            ["cutoff",2437.6000000000004],
+                            ["reverbMix",0.06],
+                            ["roomSize",0],
+                            ["delay",14994.000000000002],
+                            ["delayMix",0],
+                            ["frequency",440],
+                            ["frequency2",440],
+                        ]
 
                         sampler = instruments.addSampler();
                         sampler.loadSample("controlversion2.mp3", 0);
                         sampler.loadSample("fail2.mp3", 1);
-                        sampler.loadSample('controlshot.mp3',2);
                         sampler.setParam("rate_0", 1);
                         sampler.setParam("pan_0", 0.5);
                         sampler.setParam("gain_0", 1);
@@ -124,22 +148,20 @@
 
                         if (intersectedEls.length > 0) {
 
-                            //                            let noteValue = intersectedEls[0].dataset.basslineP;
-                            //                            let noteLength = intersectedEls[0].dataset.basslineL * 116;
-
                             if (intersectedEls[0].getAttribute('id') === 'bassLeft' && this.el.id === 'leftHand') {
-                                sampler.noteon(2);
+                                
+                                laserSynth.noteon(65);
                                 intersectedEls[0].setAttribute("visible", 'false');
                                 this.triggerdown = false;
                             } else if (intersectedEls[0].getAttribute('id') === 'bassRight' && this.el.id === 'rightHand') {
-                                sampler.noteon(2);
+                                laserSynth.noteon(69);
                                 intersectedEls[0].setAttribute("visible", 'false');
                                 this.triggerdown = false;
                             }
 
-                            //                            setTimeout(() => {
-                            //                                bassSynth.noteoff(noteValue);
-                            //                            }, noteLength);
+                           setTimeout(() => {
+                                laserSynth.noteoff(noteValue);
+                           }, 116);
                         }  
 
                         setTimeout(() => {

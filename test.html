@@ -68,7 +68,7 @@
                         //sampler.setSequence(drums,4); 
                         //instruments.playPause();                   
                         sampler.setSequence(drums,4);
-                       
+                        instruments.playPause(); 
 
                         resolve();
                        
@@ -113,10 +113,10 @@
                         if (!animationStarted) {
                              loadSound().then(() => {
                                  
-                    //instruments.rewind();
+                            instruments.rewind();
                     //sampler.setSequence(drums,4); 
                                  
-                            //instruments.playPause();
+                            instruments.playPause();
                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                              animationStarted = true;
 //                             soundReady = false;
@@ -137,8 +137,10 @@
                         if (event.key == 'p' && animationStarted == false && soundReady == true){
                              loadSound().then(() => {
                                  
-                    //instruments.rewind();
+                     instruments.rewind();
                     //sampler.setSequence(drums,4); 
+                                 
+                            instruments.playPause();
                                  
                             //instruments.playPause();
                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');

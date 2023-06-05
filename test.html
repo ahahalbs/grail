@@ -14,9 +14,6 @@
             let bassSynth;
             let sampler; 
             let soundReady = false;
-                                    let drums = [
-                            {p:0, s:0, v:127}, 
-                        ];
 
             // make clear that the origin is on mimicproject
             var origin = "https://mimicproject.com/libs";
@@ -25,8 +22,8 @@
             const loadSound = () => {
                 return new Promise((resolve, reject) => {
                     instruments.loadModules().then(() => {
-                       
-                        bassSynth = instruments.addSynth();
+
+                       bassSynth = instruments.addSynth();
                         bassSynth.setOsc(2);
 
                         bassSynth.setParams([
@@ -53,7 +50,7 @@
                         ]);
 
                         sampler = instruments.addSampler();
-                        sampler.loadSample("CLICK.mp3", 0);
+                        sampler.loadSample("aversion2.mp3", 0);
                         sampler.loadSample("fail2.mp3", 1);
                         sampler.setParam("rate_0", 1);
                         sampler.setParam("pan_0", 0.5);
@@ -62,16 +59,16 @@
                         sampler.setParam("pan_1", 0.5);
                         sampler.setParam("gain_1", 0.5);
 
-
+                        let drums = [
+                            {p:0, s:0, v:127}, 
+                        ];
                         //instruments.playPause();
                         instruments.setTempo(129);
-                        //sampler.setSequence(drums,4); 
-                        //instruments.playPause();                   
-                        sampler.setSequence(drums,4);
-                        instruments.playPause(); 
+                        sampler.setSequence(drums,4); 
+                        instruments.playPause();                   
+
 
                         resolve();
-                       
                     }).catch((err) => {
                         console.log("error", err);
                         reject(err);
@@ -79,10 +76,13 @@
                 });
             };
             window.addEventListener('load', (event) => {
-                  soundReady = true;
+                loadSound().then(() => {
+                    instruments.rewind();
+                    soundReady = true;
                     var scene = document.querySelector('#my-scene');
                     scene.style.visibility = 'visible';
-               
+
+                });
             });
         </script>
         <script>
@@ -110,22 +110,11 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted) {
-                             loadSound().then(() => {
-                                 
-                            instruments.rewind();
-                    //sampler.setSequence(drums,4); 
-                                 
+                        if (!animationStarted && soundReady) {
                             instruments.playPause();
-                           tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                             animationStarted = true;
-//                             soundReady = false;
-                  
-
-                });
-                            
-                            
-                           
+                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                            animationStarted = true;
+                            soundReady = false;
 
                         }
                     });
@@ -135,20 +124,11 @@
                         const tilesEntity = document.getElementById('tilesEntity');
 
                         if (event.key == 'p' && animationStarted == false && soundReady == true){
-                             loadSound().then(() => {
-                                 
-                     instruments.rewind();
-                    //sampler.setSequence(drums,4); 
-                                 
-                            instruments.playPause();
-                                 
-                            //instruments.playPause();
-                           tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                             animationStarted = true;
-//                             soundReady = false;
-                  
+                            instruments.playPause();  // Play the sound
 
-                });
+                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                            animationStarted = true;
+                            soundReady = false;
 
                         }
                     });

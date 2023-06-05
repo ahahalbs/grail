@@ -111,7 +111,7 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted && soundReady) {
+                        if (animationStarted == false && soundReady == true) {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;

@@ -72,15 +72,11 @@
                         console.log("error", err);
                     });
             };
-//            window.addEventListener('load', (event) => {
-//                loadSound().then(() => {
-//                    instruments.rewind();
-//                    soundReady = true;
-//                    var scene = document.querySelector('#my-scene');
-//                    scene.style.visibility = 'visible';
-//
-//                });
-//            });
+           window.addEventListener('load', (event) => {
+              
+               var scene = document.querySelector('#my-scene');
+                   scene.style.visibility = 'visible';
+           });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {

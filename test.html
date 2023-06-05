@@ -78,14 +78,16 @@
                 });
             };
             window.addEventListener('load', (event) => {
-                loadSound().then(() => {
-                    //instruments.rewind();
-                    
-                    soundReady = true;
-                    var scene = document.querySelector('#my-scene');
+                var scene = document.querySelector('#my-scene');
                     scene.style.visibility = 'visible';
+//                 loadSound().then(() => {
+//                     //instruments.rewind();
+                    
+//                     soundReady = true;
+//                     var scene = document.querySelector('#my-scene');
+//                     scene.style.visibility = 'visible';
 
-                });
+//                 });
             });
         </script>
         <script>
@@ -113,14 +115,17 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted && soundReady) {
-                            sampler.setSequence(drums,4); 
+                        if (!animationStarted) {
+                            loadSound().then(() => {
+                                sampler.setSequence(drums,4); 
                             instruments.playPause();
-                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                                 tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
-                            soundReady = false;
-
-                        }
+                    //instruments.rewind();
+                    
+                    
+            
+                });
                     });
 
                     //start the step sequencer

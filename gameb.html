@@ -145,22 +145,25 @@
                         this.cylinder.setAttribute('material', {color: color, transparent: false, opacity: 1});
                         this.triggerdown = true;
                         const intersectedEls = this.el.components.raycaster.intersectedEls;
-
+                        
+                        if(this.el.id === 'leftHand'){
+                          let noteValue = 65;  
+                        } else{
+                          let noteValue = 69;
+                        }
+                          laserSynth.noteon(noteValue);
                         if (intersectedEls.length > 0) {
 
                             if (intersectedEls[0].getAttribute('id') === 'bassLeft' && this.el.id === 'leftHand') {
-                                
-                                laserSynth.noteon(65);
                                 intersectedEls[0].setAttribute("visible", 'false');
                                 this.triggerdown = false;
                             } else if (intersectedEls[0].getAttribute('id') === 'bassRight' && this.el.id === 'rightHand') {
-                                laserSynth.noteon(69);
                                 intersectedEls[0].setAttribute("visible", 'false');
                                 this.triggerdown = false;
                             }
-
                            setTimeout(() => {
                                 laserSynth.noteoff(noteValue);
+                                
                            }, 116);
                         }  
 

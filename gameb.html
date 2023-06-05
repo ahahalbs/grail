@@ -20,7 +20,6 @@
             // pass the origin in when loading your instruments
             const instruments = new MaxiInstruments(origin);
             const loadSound = () => {
-                return new Promise((resolve, reject) => {
                     instruments.loadModules().then(() => {
 
                         bassSynth = instruments.addSynth();
@@ -63,29 +62,12 @@
                         sampler.setParam("pan_2", 0.5);
                         sampler.setParam("gain_2", 0.8);
 
-                        let drums = [
-                            {p:0, s:0, v:127}, 
-                        ];
-                        //instruments.playPause();
                         instruments.setTempo(129);
-                        sampler.setSequence(drums,4); 
-                        instruments.playPause();                   
-                        resolve();
+                                        
                     }).catch((err) => {
                         console.log("error", err);
-                        reject(err);
                     });
-                });
             };
-            window.addEventListener('load', (event) => {
-                loadSound().then(() => {
-                    instruments.rewind();
-                    soundReady = true;
-                    var scene = document.querySelector('#my-scene');
-                    scene.style.visibility = 'visible';
-                    //instruments.playPause(); 
-                });
-            });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -112,28 +94,28 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted && soundReady) {
-                            instruments.playPause();
+                        if (animationStarted == false && soundReady == true) {
+                            sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;
 
-                        }
+                        };
                     });
 
                     //start the step sequencer
-                    document.addEventListener('keydown', (event) => {
-                        const tilesEntity = document.getElementById('tilesEntity');
+//                     document.addEventListener('keydown', (event) => {
+//                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (event.key == 'p' && animationStarted == false && soundReady == true){
-                            instruments.playPause();  
+//                         if (event.key == 'p' && animationStarted == false && soundReady == true){
+//                             instruments.playPause();  
 
-                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            animationStarted = true;
-                            soundReady = false;
+//                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+//                             animationStarted = true;
+//                             soundReady = false;
 
-                        }
-                    });
+//                         }
+//                     });
                     this.el.addEventListener('triggerdown', (event) => {
                         //const color = this.el.id === 'leftHand' ? '#FD3A69' : '#FECD1A';
                         this.cylinder.setAttribute('material', {color: color, transparent: false, opacity: 1});
@@ -279,7 +261,7 @@
             AFRAME.registerComponent('helper', {
                 schema: {
                     threshold: {type: 'number', default: -7},
-                    axis: {type: 'string', default: 'z'}  // Default to only consider z axis, if 'xz' then consider both x and z axis
+                    axis: {type: 'string', default: 'z'}  
                 },
 
                 init: function () {
@@ -295,9 +277,9 @@
                         autoplay: false
                     });
 
-                    // Listen for the animationcomplete event
+                    // listen for the animationcomplete event
                     this.helper.addEventListener('animationcomplete', () => {
-                        // When the animation finishes, set the opacity back to 0
+                        // reset opacity
                         this.helper.setAttribute('material', 'opacity', 0.1);
                     });
                 },
@@ -318,14 +300,14 @@
                         if (this.data.axis === 'xz') {
                             if (tilePositionZ + tileDepth >= this.data.threshold && tilePositionX >= helperMinX && tilePositionX <= helperMaxX && !this.tilesCrossed[i] && tileVis == true) {
                                 this.tilesCrossed[i] = true;
-                                // Stop and then restart the animation
+                                // stop/start the animation
                                 this.helper.setAttribute('animation', 'autoplay', false);
                                 this.helper.setAttribute('animation', 'autoplay', true);
                             }
                         } else {
                             if (tilePositionZ + tileDepth >= this.data.threshold && !this.tilesCrossed[i] && tileVis == true) {
                                 this.tilesCrossed[i] = true;
-                                // Stop and then restart the animation
+                                // stop/start animation
                                 this.helper.setAttribute('animation', 'autoplay', false);
                                 this.helper.setAttribute('animation', 'autoplay', true);
                             }
@@ -496,7 +478,9 @@
             </a-scene> 
         </div>
         <div class="container">
-                        <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: to replay the same version clear cache + refresh</h4>
+            <br>
+            <button id="soundButton">Click here to load game!</button>
+            <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers!</h4>
             <h3>Controls</h3>
             <div>
                 <li>Left trigger - fire pink laser</li>
@@ -525,5 +509,14 @@
             </div>
         </div>
     </body>
-    
+     <script>
+        document.getElementById("soundButton").onclick = function() {
+            loadSound();
+            setTimeout(() => {
+                var scene = document.querySelector('#my-scene');
+                scene.style.visibility = 'visible';
+                soundReady = true;
+            }, 4000);
+        }
+    </script>
 </html>

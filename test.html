@@ -51,7 +51,7 @@
                         ]);
                         let cacheBuster = Math.random();
                         sampler = instruments.addSampler();
-                        sampler.loadSample("CLICK.mp3", 0);
+                        sampler.loadSample("aversion1.mp3", 0);
                         sampler.loadSample("fail2.mp3", 1);
                         sampler.setParam("rate_0", 1);
                         sampler.setParam("pan_0", 0.5);
@@ -65,8 +65,8 @@
                         ];
                         //instruments.playPause();
                         instruments.setTempo(129);
-                        //sampler.setSequence(drums,4); 
-                        //instruments.playPause();                   
+                        sampler.setSequence(drums,4); 
+                        instruments.playPause();                   
 
 
                         resolve();
@@ -78,7 +78,7 @@
             };
             window.addEventListener('load', (event) => {
                 loadSound().then(() => {
-                    //instruments.rewind();
+                    instruments.rewind();
                     soundReady = true;
                     var scene = document.querySelector('#my-scene');
                     scene.style.visibility = 'visible';

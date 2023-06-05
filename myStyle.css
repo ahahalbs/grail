@@ -28,9 +28,29 @@ form {
      z-index: 3;
 
 }
- #my-scene {
-            visibility: hidden;
+#my-scene {
+          visibility: hidden;
         }
+#soundButton {
+    font-family: Courier, monospace;
+    font-size: 18px;
+    color: white;
+    background-color: #FD3A69;
+    align-items: center;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 12px; 
+    cursor: pointer;
+    outline: none;
+}
+
+#soundButton:active {
+    transform: scale(0.9);
+}
+
+#soundButton:hover {
+    background-color: #E0345E;
+}
 
 #mySceneContainer {
     position: absolute;
@@ -55,13 +75,13 @@ form {
 }
 .splash-container{
     background-color: white;
-    width: 60%; /* adjust as necessary */
+    width: 60%; 
     max-width: 800px;
     max-height: 2000%;
-    margin-top: -400px; /* adjust as necessary */
+    margin-top: -400px; 
     z-index: 1;
     box-sizing: border-box;
-    padding: 400px 20px 20px; /* adjust as necessary */
+    padding: 400px 20px 20px; 
     position: relative;
     font-size: 18px;
 }

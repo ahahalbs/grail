@@ -13,6 +13,7 @@
             let animationStarted = false;
             let bassSynth;
             let sampler; 
+            let soundReady = false;
 
             // make clear that the origin is on mimicproject
             var origin = "https://mimicproject.com/libs";
@@ -71,11 +72,15 @@
                         console.log("error", err);
                     });
             };
-           window.addEventListener('load', (event) => {
-              
-               var scene = document.querySelector('#my-scene');
-                   scene.style.visibility = 'visible';
-           });
+//            window.addEventListener('load', (event) => {
+//                loadSound().then(() => {
+//                    instruments.rewind();
+//                    soundReady = true;
+//                    var scene = document.querySelector('#my-scene');
+//                    scene.style.visibility = 'visible';
+//
+//                });
+//            });
         </script>
         <script>
             AFRAME.registerComponent('controller-listener', {
@@ -102,14 +107,15 @@
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (!animationStarted) {
-                           loadSound();
+                        if (animationStarted == false && soundReady == true) {
+                           //loadSound();
                             setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
+                            soundReady = false;
 
-                            }, 3720);
+                            }, 4000);
                         };
                     });
 
@@ -120,15 +126,16 @@
                        
                         
 
-                        if (event.key == 'p' && animationStarted == false){
-                            loadSound();
+                        if (event.key == 'p' && animationStarted == false && soundReady == true){
+                            //loadSound();
                              animationStarted = true;
 
                             setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+                            soundReady = false;
 
-                            }, 3720);
+                            }, 4000);
                             
 //                            //instruments.playPause();  // Play the sound
 //                            sampler.noteon(0);
@@ -376,7 +383,7 @@
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8  });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7  });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -405,7 +412,7 @@
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7 });
                         }
 
                         tile.setAttribute('class', 'interactive');
@@ -500,6 +507,9 @@
             </a-scene> 
         </div>
         <div class="container">
+            <br>
+            <button id="soundButton">Enable Sound</button>
+
                         <h4>Make sure your sound is turned up, nice and loud! It is in an experimental stage so there maybe the odd glitch every now and then. This only works in VR mode with controllers! Note: to replay the same version go back and enter url again, not refresh</h4>
 
             <h3>Controls</h3>
@@ -530,4 +540,12 @@
             </div>
         </div>
     </body>
+    <script>
+        
+document.getElementById("soundButton").onclick = function() {
+    // User confirmation popup
+    loadSound();
+    soundReady = true;
+}
+</script>
 </html>

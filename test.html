@@ -49,7 +49,6 @@
                             ["frequency",440],
                             ["frequency2",440],
                         ]);
-                        let cacheBuster = Math.random();
                         sampler = instruments.addSampler();
                         sampler.loadSample("aversion1.mp3", 0);
                         sampler.loadSample("fail2.mp3", 1);
@@ -77,16 +76,16 @@
                 });
             };
             window.addEventListener('load', (event) => {
-                loadSound().then(() => {
-                    instruments.rewind();
-                    soundReady = true;
-                    var scene = document.querySelector('#my-scene');
+//                 loadSound().then(() => {
+//                     instruments.rewind();
+//                     soundReady = true;
+//                     var scene = document.querySelector('#my-scene');
                     scene.style.visibility = 'visible';
                     //console.log(soundReady);
                     // Play the sound
 
                     //instruments.playPause();  // Pausing immediately after loading.
-                });
+//                 });
             });
         </script>
         <script>
@@ -113,6 +112,16 @@
 
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
+                        loadSound().then(() => {
+                    instruments.rewind();
+                    soundReady = true;
+                    var scene = document.querySelector('#my-scene');
+                    scene.style.visibility = 'visible';
+                    //console.log(soundReady);
+                    // Play the sound
+
+                    //instruments.playPause();  // Pausing immediately after loading.
+                });
 
                         if (!animationStarted && soundReady) {
                             instruments.playPause();

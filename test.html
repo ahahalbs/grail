@@ -13,7 +13,6 @@
             let animationStarted = false;
             let bassSynth;
             let sampler; 
-            let soundReady = false;
 
             // make clear that the origin is on mimicproject
             var origin = "https://mimicproject.com/libs";
@@ -109,9 +108,8 @@
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
-                            soundReady = false;
 
-                            }, 5000);
+                            }, 3720);
                         };
                     });
 
@@ -129,9 +127,8 @@
                             setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            soundReady = false;
 
-                            }, 5000);
+                            }, 3720);
                             
 //                            //instruments.playPause();  // Play the sound
 //                            sampler.noteon(0);
@@ -379,7 +376,7 @@
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7  });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8  });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -408,7 +405,7 @@
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8 });
                         }
 
                         tile.setAttribute('class', 'interactive');

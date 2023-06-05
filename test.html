@@ -79,7 +79,7 @@
             };
             window.addEventListener('load', (event) => {
                 loadSound().then(() => {
-                    instruments.rewind();
+                    //instruments.rewind();
                     
                     soundReady = true;
                     var scene = document.querySelector('#my-scene');
@@ -115,7 +115,7 @@
 
                         if (!animationStarted && soundReady) {
                             sampler.setSequence(drums,4); 
-                            //instruments.playPause();
+                            instruments.playPause();
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;

@@ -147,16 +147,16 @@
                         const intersectedEls = this.el.components.raycaster.intersectedEls;
                         
                         if(this.el.id == 'leftHand'){
-                          let noteValue = 65;  
+                          this.noteValue = 65;  
                         } else{
-                          let noteValue = 69;
+                          this.noteValue = 69;
                         }
                         if(this.trigger == true){
-                           laserSynth.noteon(noteValue);
-                             this.triggerdown = false;
+                           laserSynth.noteon(this.noteValue);
                         }
+                         
                         setTimeout(() => {
-                                laserSynth.noteoff(noteValue);
+                                laserSynth.noteoff(this.noteValue);
                                 
                            }, 116);
                           

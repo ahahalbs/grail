@@ -20,7 +20,6 @@
             // pass the origin in when loading your instruments
             const instruments = new MaxiInstruments(origin);
             const loadSound = () => {
-                return new Promise((resolve, reject) => {
                     instruments.loadModules().then(() => {
 
 
@@ -60,25 +59,22 @@
                         sampler.setParam("pan_1", 0.5);
                         sampler.setParam("gain_1", 0.5);
 
-                        let drums = [
-                            {p:0, s:0, v:127}, 
-                        ];
+//                        let drums = [
+//                            {p:0, s:0, v:127}, 
+//                        ];
                         //instruments.playPause();
                         instruments.setTempo(129);
                         //sampler.setSequence(drums,4); 
                         //instruments.playPause();                   
 
 
-                        resolve();
                     }).catch((err) => {
                         console.log("error", err);
-                        reject(err);
                     });
-                });
             };
 //            window.addEventListener('load', (event) => {
 //                loadSound().then(() => {
-//                    //instruments.rewind();
+//                    instruments.rewind();
 //                    soundReady = true;
 //                    var scene = document.querySelector('#my-scene');
 //                    scene.style.visibility = 'visible';
@@ -107,49 +103,45 @@
 
                     //trigger state
                     this.triggerdown = false;
-                    
-                     //start the step sequencer
-                    document.addEventListener('keydown', (event) => {
-                        const tilesEntity = document.getElementById('tilesEntity');
-                        
-                                        loadSound().then(() => {
-                    //instruments.rewind();
-                    soundReady = true;
-                    var scene = document.querySelector('#my-scene');
-                    scene.style.visibility = 'visible';
-
-                });
 
                     this.el.addEventListener('buttondown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
 
-                        if (animationStarted == false && soundReady == true) {
+                        if (!animationStarted) {
+                           loadSound();
+                            setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
                             animationStarted = true;
                             soundReady = false;
 
-                        }
+                            }, 5000);
+                        };
                     });
 
                     //start the step sequencer
                     document.addEventListener('keydown', (event) => {
                         const tilesEntity = document.getElementById('tilesEntity');
+                    
+                       
                         
-                                        loadSound().then(() => {
-                    //instruments.rewind();
-                    soundReady = true;
-                    var scene = document.querySelector('#my-scene');
-                    scene.style.visibility = 'visible';
 
-                });
+                        if (event.key == 'p' && animationStarted == false){
+                            loadSound();
+                             animationStarted = true;
 
-                        if (event.key == 'p' && animationStarted == false && soundReady == true){
-                            //instruments.playPause();  // Play the sound
+                            setTimeout(() => {
                             sampler.noteon(0);
                             tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
-                            animationStarted = true;
                             soundReady = false;
+
+                            }, 5000);
+                            
+//                            //instruments.playPause();  // Play the sound
+//                            sampler.noteon(0);
+//                            tilesEntity.setAttribute('animation', 'property: position; from:0 0 0; to: 0 0 2480; dur: 288377; easing: linear');
+//                            animationStarted = true;
+//                            soundReady = false;
 
                         }
                     });

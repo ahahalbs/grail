@@ -49,10 +49,10 @@
                             ["frequency",440],
                             ["frequency2",440],
                         ]);
-
+                        let cacheBuster = Math.random();
                         sampler = instruments.addSampler();
-                        sampler.loadSample("aversion1.mp3", 0);
-                        sampler.loadSample("fail2.mp3", 1);
+                        sampler.loadSample(`aversion1.mp3?cb=${cacheBuster}`, 0);
+                        sampler.loadSample(`fail2.mp3?cb=${cacheBuster}`, 1);
                         sampler.setParam("rate_0", 1);
                         sampler.setParam("pan_0", 0.5);
                         sampler.setParam("gain_0", 1);

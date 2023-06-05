@@ -22,7 +22,6 @@
             const loadSound = () => {
                 instruments.loadModules().then(() => {
 
-
                     bassSynth = instruments.addSynth();
                     bassSynth.setOsc(2);
 
@@ -378,7 +377,7 @@
                                 x = -1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7  });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8  });
 
                         } else {
                             tile.setAttribute('id', 'bassRight');
@@ -407,7 +406,7 @@
                                 x = 1;
                                 y = -1;
                             }
-                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -7 });
+                            tile.setAttribute('position', { x: x, y: y, z: -bassline[i].s - (bassline[i].l / 2) -8 });
                         }
 
                         tile.setAttribute('class', 'interactive');

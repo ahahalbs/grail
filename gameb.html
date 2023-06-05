@@ -53,7 +53,7 @@
                         laserSynth.setParams([
                             ["oscFn",2],
                             ["lfoOscFn",3],
-                            ["gain",0.5],
+                            ["gain",0.3],
                             ["pan",0.5],
                             ["attack",30],
                             ["decay",1500],
@@ -146,12 +146,20 @@
                         this.triggerdown = true;
                         const intersectedEls = this.el.components.raycaster.intersectedEls;
                         
-                        if(this.el.id === 'leftHand'){
+                        if(this.el.id == 'leftHand'){
                           let noteValue = 65;  
                         } else{
                           let noteValue = 69;
                         }
-                          laserSynth.noteon(noteValue);
+                        if(this.trigger == true){
+                           laserSynth.noteon(noteValue);
+                             this.triggerdown = false;
+                        }
+                        setTimeout(() => {
+                                laserSynth.noteoff(noteValue);
+                                
+                           }, 116);
+                          
                         if (intersectedEls.length > 0) {
 
                             if (intersectedEls[0].getAttribute('id') === 'bassLeft' && this.el.id === 'leftHand') {
@@ -161,10 +169,7 @@
                                 intersectedEls[0].setAttribute("visible", 'false');
                                 this.triggerdown = false;
                             }
-                           setTimeout(() => {
-                                laserSynth.noteoff(noteValue);
-                                
-                           }, 116);
+                           
                         }  
 
                         setTimeout(() => {
